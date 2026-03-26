@@ -1,37 +1,22 @@
 from pages.base_page import BasePage
 from locators.password_recovery_locators import PasswordRecoveryLocators
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+from config import urls
 
 
 class ForgotPasswordPage(BasePage):
 
-    URL = "https://stellarburgers.education-services.ru/forgot-password"
+    URL = urls.FORGOT_PASSWORD
 
-    
     def open(self):
-        self.driver.get(self.URL)
+        self.open_url(self.URL)
 
-    
     def enter_email(self, email):
         self.send_keys(PasswordRecoveryLocators.EMAIL_INPUT, email)
 
-    
     def click_recover(self):
-
-        wait = WebDriverWait(self.driver, 10)
-
-        button = wait.until(
-            EC.presence_of_element_located(
-                PasswordRecoveryLocators.RECOVER_BUTTON
-            )
-        )
-
         
-        self.driver.execute_script("arguments[0].scrollIntoView();", button)
+        button = self.find_element(PasswordRecoveryLocators.RECOVER_BUTTON)
+        self.scroll_into_view(button)
+        self.click_js(button)
 
-        
-        self.driver.execute_script("arguments[0].click();", button)
-
-        
-        wait.until(EC.url_contains("reset-password"))
+        self.wait_for_url_contains(urls.RESET_PASSWORD_ENDPOINT)

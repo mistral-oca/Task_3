@@ -1,26 +1,22 @@
 from pages.base_page import BasePage
 from locators.password_recovery_locators import PasswordRecoveryLocators
+from config import urls
 
 
 class ResetPasswordPage(BasePage):
 
-    URL = "https://stellarburgers.education-services.ru/reset-password"
+    URL = urls.RESET_PASSWORD_ENDPOINT
 
-    
+    def open(self):
+        self.open_url(self.URL)
+
     def enter_password(self, password):
         self.send_keys(PasswordRecoveryLocators.PASSWORD_INPUT, password)
 
     def click_show_hide_password(self):
-        
-        button = self.wait.until(
-            lambda d: d.find_element(*PasswordRecoveryLocators.SHOW_HIDE_PASSWORD_BUTTON)
-        )
-    
-        
-        self.driver.execute_script("arguments[0].scrollIntoView();", button)
-    
-        
-        self.driver.execute_script("arguments[0].click();", button)
+        button = self.find_element(PasswordRecoveryLocators.SHOW_HIDE_PASSWORD_BUTTON)
+        self.scroll_into_view(button)
+        self.click_js(button)
 
     def is_password_active(self):
         element = self.find(PasswordRecoveryLocators.PASSWORD_INPUT)
