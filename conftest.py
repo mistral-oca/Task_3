@@ -15,7 +15,3 @@ def driver(request):
     driver.maximize_window()
     yield driver
     driver.quit()
-
-@pytest.fixture
-def base_url():
-    return "https://stellarburgers.education-services.ru/"
