@@ -2,14 +2,13 @@ from pages.base_page import BasePage
 from locators.feed_page_locators import FeedPageLocators
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
+from config.urls import FEED_PAGE
 
 
 class FeedPage(BasePage):
 
-    URL_FEED = "feed"
-
-    def open_feed(self, base_url):
-        self.open_url(base_url + self.URL_FEED)
+    def open_feed(self):
+        self.open_url(FEED_PAGE)
 
     def get_all_orders(self):
         self.wait_for_visibility(FeedPageLocators.ORDER_CARD)

@@ -10,3 +10,5 @@ class MainPageLocators:
     ADD_BUTTON = (By.XPATH, "//button[text()='Оформить заказ']")
     ORDER_MODAL = (By.CSS_SELECTOR, "div.Modal_modal__contentBox__sCy8X")
     CREATE_ORDER_BUTTON = (By.XPATH, "//button[contains(text(),'Оформить заказ')]")
+    ORDER_NUMBER = (By.XPATH, "//div[contains(@class,'Modal_modal')]//h2[contains(@class,'text_type_digits-large')]")
+    CONSTRUCTOR_BASKET = (By.XPATH, "//ul[contains(@class,'BurgerConstructor_basket')]")
