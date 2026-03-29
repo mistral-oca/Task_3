@@ -14,9 +14,8 @@ class TestMainFunctionality:
     @allure.title("Открытие конструктора")
     def test_open_constructor(self, driver):
         
-        driver.get(BASE_URL)
         page = MainPage(driver)
-        page.open_constructor()
+        page.open()
 
         assert BASE_URL in driver.current_url
 
@@ -37,11 +36,11 @@ class TestMainFunctionality:
 
     @allure.title("Открытие модального окна ингредиента")
     def test_open_ingredient_modal(self, driver):
-        driver.get(MAIN_PAGE)
         page = MainPage(driver)
+        page.open()
         self.click_ingredient_step(page)
-        modal = page.find(MainPageLocators.INGREDIENT_MODAL)
-        assert modal.is_displayed()
+
+        assert page.is_ingredient_modal_visible()
 
     @allure.step("Кликаем по ингредиенту")
     def click_ingredient_step(self, page):
@@ -49,18 +48,15 @@ class TestMainFunctionality:
 
     @allure.title("Закрытие модального окна ингредиента")
     def test_close_ingredient_modal(self, driver):
-        driver.get(MAIN_PAGE)
         page = MainPage(driver)
+        page.open()
         self.click_ingredient_step(page)
         self.close_modal_step(page)
 
-        WebDriverWait(driver, 5).until(
-            EC.invisibility_of_element_located(MainPageLocators.INGREDIENT_MODAL)
-        )
+        page.wait_for_modal_close()
+        assert not page.is_ingredient_modal_visible()
 
-        element = driver.find_element(*MainPageLocators.INGREDIENT_MODAL)
-        assert not element.is_displayed()
-
+        
     @allure.step("Закрываем модальное окно")
     def close_modal_step(self, page):
         page.close_modal()

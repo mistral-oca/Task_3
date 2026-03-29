@@ -65,3 +65,12 @@ class MainPage(BasePage):
     
     def is_constructor_visible(self):
         return self.find(MainPageLocators.CONSTRUCTOR_SECTION).is_displayed()
+    
+    def wait_for_modal_close(self):
+        self.wait_for_invisibility(MainPageLocators.INGREDIENT_MODAL)
+
+    def is_ingredient_modal_visible(self):
+        try:
+            return self.find(MainPageLocators.INGREDIENT_MODAL).is_displayed()
+        except:
+            return False
