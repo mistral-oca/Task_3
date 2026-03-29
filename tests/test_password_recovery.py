@@ -3,9 +3,7 @@ from pages.main_page import MainPage
 from pages.forgot_password_page import ForgotPasswordPage
 from pages.reset_password_page import ResetPasswordPage
 from config import urls
-
-TEST_EMAIL = "dottest@test.ru"
-TEST_PASSWORD = "123456"
+from config.credentials import TEST_EMAIL, TEST_PASSWORD
 
 
 @allure.feature("Восстановление пароля")

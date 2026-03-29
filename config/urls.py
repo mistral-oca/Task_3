@@ -2,6 +2,6 @@ BASE_URL = "https://stellarburgers.education-services.ru"
 FORGOT_PASSWORD = f"{BASE_URL}/forgot-password"
 RESET_PASSWORD_ENDPOINT = "/reset-password"
 LOGIN = f"{BASE_URL}/login"
-MAIN_PAGE = f"{BASE_URL}/login"
+MAIN_PAGE = BASE_URL
 ACCOUNT_PAGE = f"{BASE_URL}/account"
 FEED_PAGE = f"{BASE_URL}/feed"

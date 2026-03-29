@@ -4,10 +4,7 @@ from pages.login_page import LoginPage
 from locators.feed_page_locators import FeedPageLocators
 from config.urls import LOGIN, MAIN_PAGE, FEED_PAGE
 import allure
-
-
-TEST_EMAIL = "dottest@test.ru"
-TEST_PASSWORD = "123456"
+from config.credentials import TEST_EMAIL, TEST_PASSWORD
 
 @allure.feature("Лента заказов")
 class TestOrderFeed:
@@ -16,7 +13,7 @@ class TestOrderFeed:
     def test_open_order_details_modal(self, driver):
 
         feed = FeedPage(driver)
-        feed.open_feed()   # 👈 убрали base_url
+        feed.open_feed()   
 
         feed.open_first_order()
 
