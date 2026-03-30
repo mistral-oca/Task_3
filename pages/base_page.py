@@ -1,6 +1,7 @@
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.action_chains import ActionChains
 
 class BasePage:
     def __init__(self, driver, timeout=10):
@@ -56,3 +57,12 @@ class BasePage:
         WebDriverWait(self.driver, timeout).until(
             EC.invisibility_of_element_located(locator)
         )
+
+    def wait_for_text_not_empty(self, locator, timeout=15):
+        return WebDriverWait(self.driver, timeout).until(
+            lambda d: self.find(locator).text.strip() not in ["", "9999"]
+        )
+    
+    def drag_and_drop(self, source, target):
+        actions = ActionChains(self.driver)
+        actions.click_and_hold(source).move_to_element(target).release().perform()

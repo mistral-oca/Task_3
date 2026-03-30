@@ -1,10 +1,7 @@
-from selenium.webdriver.common.action_chains import ActionChains
 from pages.base_page import BasePage
 from locators.password_recovery_locators import PasswordRecoveryLocators
 from locators.main_page_locators import MainPageLocators
 from config.urls import MAIN_PAGE
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 
 
 class MainPage(BasePage):
@@ -38,26 +35,20 @@ class MainPage(BasePage):
 
         self.scroll_into_view(ingredient)
 
-        actions = ActionChains(self.driver)
-        actions.click_and_hold(ingredient).move_to_element(constructor).release().perform()
+        self.drag_and_drop(ingredient, constructor)
 
     def create_order(self, timeout=10):
         self.click(MainPageLocators.CREATE_ORDER_BUTTON)
         return self.wait_for_visibility(MainPageLocators.ORDER_MODAL, timeout)
 
     def get_order_number(self, timeout=15):
-        order_number_element = WebDriverWait(self.driver, timeout).until(
-            EC.visibility_of_element_located(MainPageLocators.ORDER_NUMBER)
-        )
-        
-        WebDriverWait(self.driver, timeout).until(
-            lambda d: order_number_element.text.strip() not in ["", "9999"]
-        )
-        return order_number_element.text.strip()
+        self.wait_for_visibility(MainPageLocators.ORDER_NUMBER, timeout)
+        self.wait_for_text_not_empty(MainPageLocators.ORDER_NUMBER, timeout)
+        return self.find(MainPageLocators.ORDER_NUMBER).text.strip()
     
     def close_order_modal(self):
         button = self.wait_for_clickable(MainPageLocators.CLOSE_MODAL_BUTTON)
-        self.driver.execute_script("arguments[0].click();", button)
+        self.click_js(button)
 
     def get_counter_value(self):
         counter = self.find(MainPageLocators.COUNTER)
