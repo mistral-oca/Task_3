@@ -60,3 +60,9 @@ class MainPage(BasePage):
             return self.find(MainPageLocators.INGREDIENT_MODAL).is_displayed()
         except:
             return False
+        
+    def is_constructor_page_opened(self):
+        return MAIN_PAGE in self.get_current_url()  
+
+    def is_feed_page_opened(self):
+        return "feed" in self.get_current_url()

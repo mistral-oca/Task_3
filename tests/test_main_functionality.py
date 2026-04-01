@@ -1,10 +1,6 @@
 from pages.main_page import MainPage
 from pages.login_page import LoginPage
-from locators.main_page_locators import MainPageLocators
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 import allure
-from config.urls import MAIN_PAGE, LOGIN, BASE_URL
 from config.credentials import TEST_EMAIL, TEST_PASSWORD  
 
 
@@ -17,7 +13,7 @@ class TestMainFunctionality:
         page = MainPage(driver)
         page.open()
 
-        assert BASE_URL in driver.current_url
+        assert page.is_constructor_page_opened()
 
     @allure.step("Открываем конструктор")
     def open_constructor_step(self, page):
@@ -25,10 +21,10 @@ class TestMainFunctionality:
 
     @allure.title("Открытие ленты заказов")
     def test_open_order_feed(self, driver):
-        driver.get(MAIN_PAGE)
         page = MainPage(driver)
+        page.open() 
         self.open_order_feed_step(page)
-        assert "feed" in driver.current_url
+        assert page.is_feed_page_opened()
 
     @allure.step("Открываем ленту заказов")
     def open_order_feed_step(self, page):
@@ -63,10 +59,9 @@ class TestMainFunctionality:
 
     @allure.title("Счётчик увеличивается при добавлении ингредиента")
     def test_counter_increases_when_ingredient_added(self, driver):
-        driver.get(MAIN_PAGE)
         page = MainPage(driver)
+        page.open()
         self.drag_ingredient_step(page)
-
         assert page.get_counter_value() > 0
 
     @allure.step("Перетаскиваем ингредиент в конструктор")
@@ -75,12 +70,12 @@ class TestMainFunctionality:
 
     @allure.title("Авторизованный пользователь может создать заказ")
     def test_logged_user_can_create_order(self, driver):
-        driver.get(LOGIN)
         login_page = LoginPage(driver)
+        login_page.open()
         self.login_step(login_page)
 
-        driver.get(MAIN_PAGE)
         page = MainPage(driver)
+        page.open()
         self.drag_ingredient_step(page)
         order_modal = self.create_order_step(page)
         assert order_modal.is_displayed()
