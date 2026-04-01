@@ -66,3 +66,6 @@ class BasePage:
     def drag_and_drop(self, source, target):
         actions = ActionChains(self.driver)
         actions.click_and_hold(source).move_to_element(target).release().perform()
+
+    def get_current_url(self):
+        return self.driver.current_url

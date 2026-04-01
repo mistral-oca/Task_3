@@ -15,7 +15,7 @@ class TestPersonalAccount:
         account_page = AccountPage(driver)
         account_page.open_personal_account()
 
-        assert "account" in driver.current_url
+        assert account_page.is_personal_account_opened()
 
     @allure.title("Переход в историю заказов")
     def test_open_order_history(self, driver):
@@ -27,7 +27,7 @@ class TestPersonalAccount:
         account_page.open_personal_account()
         account_page.go_to_order_history()
 
-        assert "order-history" in driver.current_url
+        assert account_page.is_order_history_opened()
 
     @allure.title("Выход из аккаунта")
     def test_logout(self, driver):
@@ -39,4 +39,4 @@ class TestPersonalAccount:
         account_page.open_personal_account()
         account_page.logout()
 
-        assert "login" in driver.current_url
+        assert account_page.is_logged_out()

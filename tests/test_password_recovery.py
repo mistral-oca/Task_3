@@ -1,8 +1,7 @@
 import allure
-from pages.main_page import MainPage
+from pages.login_page import LoginPage
 from pages.forgot_password_page import ForgotPasswordPage
 from pages.reset_password_page import ResetPasswordPage
-from config import urls
 from config.credentials import TEST_EMAIL, TEST_PASSWORD
 
 
@@ -12,11 +11,13 @@ class TestPasswordRecovery:
     @allure.title("Переход на страницу восстановления пароля")
     def test_go_to_password_recovery_page(self, driver):
 
-        main_page = MainPage(driver)
-        main_page.open()
-        main_page.go_to_password_recovery()
+        login_page = LoginPage(driver)
+        login_page.open() 
 
-        assert "forgot-password" in driver.current_url
+        login_page.go_to_password_recovery()
+
+        forgot_page = ForgotPasswordPage(driver)
+        assert forgot_page.is_opened()
 
 
     @allure.title("Ввод email и нажатие кнопки восстановления")
@@ -27,7 +28,7 @@ class TestPasswordRecovery:
         page.enter_email(TEST_EMAIL)
         page.click_recover()
 
-        assert "reset-password" in driver.current_url
+        assert page.is_reset_password_page_opened()
 
 
     @allure.title("Кнопка показать/скрыть пароль делает поле активным")

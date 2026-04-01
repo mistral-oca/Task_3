@@ -15,8 +15,14 @@ class ForgotPasswordPage(BasePage):
 
     def click_recover(self):
         
-        button = self.find_element(PasswordRecoveryLocators.RECOVER_BUTTON)
+        button = self.find_element(PasswordRecoveryLocators.RECOVERY_BUTTON)
         self.scroll_into_view(button)
         self.click_js(button)
 
         self.wait_for_url_contains(urls.RESET_PASSWORD_ENDPOINT)
+
+    def is_opened(self):
+        return "forgot-password" in self.get_current_url()
+    
+    def is_reset_password_page_opened(self):
+        return "reset-password" in self.get_current_url()

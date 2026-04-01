@@ -12,7 +12,17 @@ class AccountPage(BasePage):
     def logout(self):
         self.wait_for_url_contains("account")
 
-        button = self.find_element(AccountLocators.LOGOUT_BUTTON)
+        button = self.find(AccountLocators.LOGOUT_BUTTON)
+        
         self.click_js(button)
 
         self.wait_for_url_contains("login")
+
+    def is_personal_account_opened(self):
+        return "account" in self.driver.current_url
+
+    def is_order_history_opened(self):
+        return "order-history" in self.driver.current_url
+
+    def is_logged_out(self):
+        return "login" in self.driver.current_url

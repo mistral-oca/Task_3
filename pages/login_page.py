@@ -18,3 +18,6 @@ class LoginPage(BasePage):
         self.wait.until(
             EC.visibility_of_element_located(LoginLocators.ORDER_BUTTON)
         )
+
+    def go_to_password_recovery(self):
+        self.click(LoginLocators.RECOVERY_BUTTON)

@@ -9,11 +9,6 @@ class MainPage(BasePage):
     def open(self):
         self.open_url(MAIN_PAGE)
 
-    def go_to_password_recovery(self):
-        button = self.find(PasswordRecoveryLocators.RECOVERY_BUTTON)
-        self.scroll_into_view(button)
-        self.click_js(button)
-
     def open_constructor(self):
         button = self.find(MainPageLocators.CONSTRUCTOR_BUTTON)
         self.click_js(button)

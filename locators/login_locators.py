@@ -6,3 +6,4 @@ class LoginLocators:
     LOGIN_BUTTON = (By.XPATH, "//button[text()='Войти']")
     PERSONAL_ACCOUNT_INDICATOR = (By.XPATH, "//p[text()='Личный кабинет']")
     ORDER_BUTTON = (By.XPATH, "//button[contains(text(),'Оформить заказ')]")
+    RECOVERY_BUTTON = (By.XPATH, "//a[text()='Восстановить пароль']")
