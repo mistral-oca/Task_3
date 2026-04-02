@@ -1,0 +1,47 @@
+import allure
+from pages.login_page import LoginPage
+from pages.forgot_password_page import ForgotPasswordPage
+from pages.reset_password_page import ResetPasswordPage
+from config.credentials import TEST_EMAIL, TEST_PASSWORD
+
+
+@allure.feature("Восстановление пароля")
+class TestPasswordRecovery:
+
+    @allure.title("Переход на страницу восстановления пароля")
+    def test_go_to_password_recovery_page(self, driver):
+
+        login_page = LoginPage(driver)
+        login_page.open() 
+
+        login_page.go_to_password_recovery()
+
+        forgot_page = ForgotPasswordPage(driver)
+        assert forgot_page.is_opened()
+
+
+    @allure.title("Ввод email и нажатие кнопки восстановления")
+    def test_enter_email_and_click_recover(self, driver):
+
+        page = ForgotPasswordPage(driver)
+        page.open()
+        page.enter_email(TEST_EMAIL)
+        page.click_recover()
+
+        assert page.is_reset_password_page_opened()
+
+
+    @allure.title("Кнопка показать/скрыть пароль делает поле активным")
+    def test_show_hide_password_button(self, driver):
+
+        forgot_page = ForgotPasswordPage(driver)
+        forgot_page.open()
+        forgot_page.enter_email(TEST_EMAIL)
+        forgot_page.click_recover()
+
+        reset_page = ResetPasswordPage(driver)
+
+        reset_page.enter_password(TEST_PASSWORD)
+        reset_page.click_show_hide_password()
+
+        assert reset_page.is_password_active()
