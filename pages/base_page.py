@@ -16,10 +16,10 @@ class BasePage:
         return self.wait.until(EC.presence_of_element_located(locator))
 
     def find_all(self, locator):
-        return self.driver.find_elements(*locator)
+        return self.wait.until(EC.presence_of_all_elements_located(locator))
 
     def find_element_by_xpath(self, xpath):
-        return self.driver.find_element(By.XPATH, xpath)
+        return self.wait.until(EC.presence_of_element_located((By.XPATH, xpath)))
 
     
     def click(self, locator):
