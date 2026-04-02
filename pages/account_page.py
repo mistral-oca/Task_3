@@ -19,10 +19,10 @@ class AccountPage(BasePage):
         self.wait_for_url_contains("login")
 
     def is_personal_account_opened(self):
-        return "account" in self.driver.current_url
+        return "account" in self.get_current_url()
 
     def is_order_history_opened(self):
-        return "order-history" in self.driver.current_url
+        return "order-history" in self.get_current_url()
 
     def is_logged_out(self):
-        return "login" in self.driver.current_url
+        return "login" in self.get_current_url()
